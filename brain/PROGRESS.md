@@ -9,7 +9,7 @@ Update this file at the end of every phase. Agents: work only on the phase marke
 | 2 | Wallet & ledger | DONE | ☑ | 2026-10-21 |
 | 3 | Crypto core | DONE | ☑ | 2026-10-21 |
 | 4 | Payment engine | DONE | ☑ | 2026-10-21 |
-| 5 | Frontend | IN PROGRESS | ☐ | |
+| 5 | Frontend | DONE | ☑ | 2026-10-21 |
 | 6 | Hardening & attack demos | NOT STARTED | ☐ | |
 | 7 | Deploy & present | NOT STARTED | ☐ | |
 
@@ -23,6 +23,7 @@ Update this file at the end of every phase. Agents: work only on the phase marke
 ## Deviations from the brain
 - 2026-10-21 · Phase 4 · PostgreSQL deployment benchmark completed with 200 payments at p95 231.12 ms; fixed native PostgreSQL enum bindings and loading of the configured CA key/certificate pair.
 - 2026-10-21 · Phase 5 · Built the first complete Hive UI vertical slice with hand-written primitives, responsive wallet screens, payment flow, transaction Security Lens, profile QR, and admin controls; browser integration and accessibility gates remain for final completion.
+- 2026-10-21 · Phase 5 · Wired login and browser payments to the real API with WebCrypto device signing, ECDH envelope encryption, bank receipt verification, and demo ciphertext tampering; build, unit, and Playwright smoke gates passed.
 
 ## Open questions for the author
 - College display name and VPA suffix (default `@gcet`)?
@@ -30,4 +31,4 @@ Update this file at the end of every phase. Agents: work only on the phase marke
 - Initial virtual balance per student/faculty (default ₹1,000 / ₹2,000)?
 
 ## Known issues
-- Phase 5 is ready to begin: the Phase 4 payment engine and PostgreSQL deployment gate are complete.
+- Phase 6 is ready to begin: the Phase 5 browser flow, smoke test, and responsive UI gates are complete.

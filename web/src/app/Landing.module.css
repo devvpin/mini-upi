@@ -54,6 +54,8 @@
   margin-bottom: var(--s-5);
 }
 
+.error { color: var(--danger); font-size: .85rem; }
+
 .landing__status {
   display: flex;
   gap: var(--s-4);

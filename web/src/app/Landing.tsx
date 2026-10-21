@@ -10,7 +10,7 @@ type Status = 'loading' | 'ok' | 'error';
  * Shows the project title, simulation notice, and live health/ready
  * status from the backend (proves the stack is wired up).
  */
-export function Landing({ onLogin }: { onLogin: () => void }) {
+export function Landing({ onLogin, error }: { onLogin: (collegeId: string, password: string) => Promise<void>; error: string | null }) {
   const [health, setHealth] = useState<Status>('loading');
   const [ready, setReady] = useState<Status>('loading');
 
@@ -40,9 +40,10 @@ export function Landing({ onLogin }: { onLogin: () => void }) {
         Secure campus payment simulation.
         Demonstrating real cryptographic protocols with virtual money.
       </p>
-      <form className={styles.login} onSubmit={(event) => { event.preventDefault(); onLogin(); }}>
-        <Input label="College ID" placeholder="e.g. 22IT002" required />
-        <Input label="Password" type="password" placeholder="Your password" required />
+      <form className={styles.login} onSubmit={(event) => { event.preventDefault(); const form = new FormData(event.currentTarget); void onLogin(String(form.get('college_id')), String(form.get('password'))); }}>
+        <Input label="College ID" name="college_id" placeholder="e.g. 22IT002" required />
+        <Input label="Password" name="password" type="password" placeholder="Your password" required />
+        {error && <p role="alert" className={styles.error}>{error}</p>}
         <Button type="submit">Enter campus wallet</Button>
       </form>
       <div className={styles.landing__status}>
