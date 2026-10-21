@@ -11,7 +11,7 @@ Update this file at the end of every phase. Agents: work only on the phase marke
 | 4 | Payment engine | DONE | ☑ | 2026-10-21 |
 | 5 | Frontend | DONE | ☑ | 2026-10-21 |
 | 6 | Hardening & attack demos | DONE | ☑ | 2026-10-21 |
-| 7 | Deploy & present | IN PROGRESS | ☐ | |
+| 7 | Deploy & present | DONE | ☑ | 2026-10-21 |
 
 ## Decisions
 (append: date · phase · decision · reason)
@@ -25,6 +25,7 @@ Update this file at the end of every phase. Agents: work only on the phase marke
 - 2026-10-21 · Phase 5 · Built the first complete Hive UI vertical slice with hand-written primitives, responsive wallet screens, payment flow, transaction Security Lens, profile QR, and admin controls; browser integration and accessibility gates remain for final completion.
 - 2026-10-21 · Phase 5 · Wired login and browser payments to the real API with WebCrypto device signing, ECDH envelope encryption, bank receipt verification, and demo ciphertext tampering; build, unit, and Playwright smoke gates passed.
 - 2026-10-21 · Phase 6 · Added security headers/CSP/HSTS, sensitive-route rate limits, attack-demo runner, STRIDE threat model, and dependency-audit tracking; all security regression and attack tests passed.
+- 2026-10-21 · Phase 7 · Added production Compose hardening, backup/restore scripts, 200-request load tooling, deployment instructions, report, demo script, seminar outline, and viva cheat sheet.
 
 ## Open questions for the author
 - College display name and VPA suffix (default `@gcet`)?
@@ -33,3 +34,4 @@ Update this file at the end of every phase. Agents: work only on the phase marke
 
 ## Known issues
 - Phase 7 is ready to begin: Phase 6 attack demonstrations and hardening tests are complete. npm audit reports two moderate React Router advisories requiring a future major upgrade; no high/critical frontend findings were reported.
+- Phase 7 release materials are complete. The deployment load tool targets `/health`; the payment-specific PostgreSQL benchmark remains recorded under Phase 4.

@@ -1,0 +1,71 @@
+services:
+  db:
+    image: postgres:16
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      POSTGRES_DB: miniupi
+      POSTGRES_USER: miniupi
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U miniupi -d miniupi"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+    deploy:
+      resources:
+        limits:
+          cpus: "1.5"
+          memory: 1G
+
+  api:
+    build: ./backend
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      APP_ENV: production
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./secrets:/run/secrets:ro
+    read_only: true
+    tmpfs:
+      - /tmp
+    expose:
+      - "8000"
+    deploy:
+      resources:
+        limits:
+          cpus: "1.5"
+          memory: 1G
+
+  web:
+    build: ./web
+    restart: unless-stopped
+    read_only: true
+    tmpfs:
+      - /tmp
+    expose:
+      - "80"
+
+  caddy:
+    image: caddy:2
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - api
+      - web
+
+volumes:
+  pgdata:
+  caddy_data:
+  caddy_config:

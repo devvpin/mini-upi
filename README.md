@@ -52,6 +52,20 @@ make lint
 make logs
 ```
 
+## Production deployment
+
+Use a real `.env` and certificates outside Git, then run:
+
+```bash
+docker compose -f docker-compose.prod.yml up -d --build
+docker compose -f docker-compose.prod.yml exec api alembic upgrade head
+./scripts/backup.sh
+```
+
+Restore a verified dump with `./scripts/restore.sh backups/<dump>`. Keep the
+backup directory off-host in a real deployment and restrict `.env` and
+certificate permissions to the service account.
+
 ## Project Structure
 
 ```
@@ -87,13 +101,13 @@ mini-upi/
 | # | Phase                        | Status       |
 |---|------------------------------|--------------|
 | 0 | Foundation                   | ✅ Complete   |
-| 1 | Identity & campus hierarchy  | Not started  |
-| 2 | Wallet & ledger              | Not started  |
-| 3 | Crypto core                  | Not started  |
-| 4 | Payment engine               | Not started  |
-| 5 | Frontend                     | Not started  |
-| 6 | Hardening & attack demos     | Not started  |
-| 7 | Deploy & present             | Not started  |
+| 1 | Identity & campus hierarchy  | ✅ Complete   |
+| 2 | Wallet & ledger              | ✅ Complete   |
+| 3 | Crypto core                  | ✅ Complete   |
+| 4 | Payment engine               | ✅ Complete   |
+| 5 | Frontend                     | ✅ Complete   |
+| 6 | Hardening & attack demos     | ✅ Complete   |
+| 7 | Deploy & present             | ✅ Complete   |
 
 ## License
 

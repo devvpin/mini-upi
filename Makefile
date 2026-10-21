@@ -1,7 +1,7 @@
 # Mini-UPI Makefile
 # Usage: make up | make test | make lint | make migrate
 
-.PHONY: up down test lint migrate format logs attacks
+.PHONY: up down test lint migrate format logs attacks backup loadtest
 
 # ── Docker ──────────────────────────────────────────────────────────────────
 up:
@@ -29,6 +29,12 @@ test-docker:
 
 attacks:
 	cd backend && python -m pytest tests/test_phase3.py tests/test_phase4.py tests/test_phase6.py -v --tb=short
+
+backup:
+	./scripts/backup.sh
+
+loadtest:
+	python scripts/loadtest/load_health.py
 
 # ── Linting ─────────────────────────────────────────────────────────────────
 lint:
