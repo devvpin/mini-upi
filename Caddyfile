@@ -1,0 +1,12 @@
+{
+	# Use internal CA for local/campus HTTPS
+}
+
+localhost {
+	handle /api/* {
+		reverse_proxy api:8000
+	}
+	handle {
+		reverse_proxy web:80
+	}
+}

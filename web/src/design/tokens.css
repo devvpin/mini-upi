@@ -1,0 +1,59 @@
+/*
+ * tokens.css — Design tokens for the "Hive" design system.
+ *
+ * Source of truth: brain/07_UI_DESIGN_SYSTEM.md
+ * All visual styling references these CSS custom properties.
+ * Dark-first, one electric lime accent.
+ */
+
+:root {
+  /* ── Surface ─────────────────────────────────────────────────────────── */
+  --bg-0: #0a0a0c;          /* app background */
+  --bg-1: #121216;          /* cards */
+  --bg-2: #1a1a20;          /* raised / inputs */
+  --line: rgba(255, 255, 255, 0.08);
+  --line-strong: rgba(255, 255, 255, 0.16);
+
+  /* ── Text ────────────────────────────────────────────────────────────── */
+  --tx-0: #f5f5f0;
+  --tx-1: #b8b8b0;
+  --tx-2: #7c7c76;
+
+  /* ── Accent (lime) ───────────────────────────────────────────────────── */
+  --accent: #d4ff3a;
+  --accent-ink: #0a0a0c;    /* text on accent */
+  --accent-glow: rgba(212, 255, 58, 0.25);
+
+  /* ── Semantic ────────────────────────────────────────────────────────── */
+  --ok: #5af0a0;
+  --warn: #ffc857;
+  --danger: #ff5c7a;
+  --info: #7cc4ff;
+
+  /* ── Shape ───────────────────────────────────────────────────────────── */
+  --r-sm: 10px;
+  --r-md: 18px;
+  --r-lg: 28px;
+  --r-pill: 999px;
+
+  /* ── Space (4 px base) ───────────────────────────────────────────────── */
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 24px;
+  --s-6: 32px;
+  --s-7: 48px;
+  --s-8: 72px;
+
+  /* ── Typography ──────────────────────────────────────────────────────── */
+  --font-display: "Bricolage Grotesque", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  /* ── Motion ──────────────────────────────────────────────────────────── */
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --t-fast: 120ms;
+  --t-med: 240ms;
+  --t-slow: 480ms;
+}
