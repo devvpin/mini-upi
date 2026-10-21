@@ -25,7 +25,6 @@ from app.bank.repository import get_transaction_by_id, get_vpa_by_handle
 from app.core.config import get_settings
 from app.core.errors import (
     AppError,
-    account_locked,
     auth_failed,
     device_not_bound,
     envelope_invalid,
@@ -265,7 +264,11 @@ async def psp_process_payment(
             user_id=current_user.id,
             txn_id=payload.txn_id,
         )
-        raise account_locked(f"MPIN entry locked due to repeated failures. Try again in {remaining_sec}s.")
+        raise AppError(
+            403,
+            "ACCOUNT_LOCKED",
+            f"MPIN entry locked due to repeated failures. Try again in {remaining_sec}s.",
+        )
 
     valid_mpin = verify_secret(inner_req.mpin, mpin_cred.mpin_hash, settings.pepper)
     if not valid_mpin:
