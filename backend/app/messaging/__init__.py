@@ -1,13 +1,33 @@
 """
-messaging — Signed and MAC'd message objects for inter-module communication.
-
-Defines the canonical message schema and helpers for signing, verifying,
-and serializing messages. Modules communicate exclusively through these
-message objects, even within the same process, so the simulation accurately
-mirrors real UPI's multi-party architecture.
-
-Crypto concept: canonical JSON serialization, ECDSA message signing.
-Threat mitigated: internal message forgery between simulated parties.
-
-Implemented in Phase 3.
+messaging — Inter-module cryptographic messaging contracts between Client, PSP, Switch, and Bank.
 """
+
+from app.messaging.crypto import (
+    create_bank_receipt,
+    create_switch_to_bank_message,
+    sign_psp_message,
+    verify_bank_receipt,
+    verify_psp_message,
+    verify_switch_to_bank_message,
+)
+from app.messaging.schemas import (
+    BankReceipt,
+    InnerPaymentRequest,
+    PaymentPayload,
+    PspToSwitchMessage,
+    SwitchToBankMessage,
+)
+
+__all__ = [
+    "PaymentPayload",
+    "InnerPaymentRequest",
+    "PspToSwitchMessage",
+    "SwitchToBankMessage",
+    "BankReceipt",
+    "sign_psp_message",
+    "verify_psp_message",
+    "create_switch_to_bank_message",
+    "verify_switch_to_bank_message",
+    "create_bank_receipt",
+    "verify_bank_receipt",
+]

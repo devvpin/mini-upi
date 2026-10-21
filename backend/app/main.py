@@ -64,11 +64,13 @@ def create_app() -> FastAPI:
     from app.bank.router import router as bank_router
     from app.crypto.router import router as crypto_router
     from app.identity.router import router as identity_router
+    from app.psp.router import router as psp_router
 
     app.include_router(identity_router, prefix="/api/v1")
     app.include_router(bank_router, prefix="/api/v1")
     app.include_router(crypto_router, prefix="/api/v1")
     app.include_router(admin_router, prefix="/api/v1")
+    app.include_router(psp_router, prefix="/api/v1")
 
     # ── Middleware (order matters: outermost first) ──────────────────────
     app.add_middleware(RequestIdMiddleware)

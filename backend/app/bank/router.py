@@ -131,18 +131,50 @@ async def resolve_vpa(
     return VpaResolveResponse(handle=vpa.handle, masked_name=masked)
 
 
+def format_qr_payload(
+    vpa: str,
+    amount_paise: int | None = None,
+    note: str | None = None,
+    hmac_key: bytes | None = None,
+) -> str:
+    """Format standard campus UPI QR payload: miniupi://pay?vpa=...&am=...&tn=...&sig=..."""
+    import hashlib
+    import hmac
+
+    parts = [f"vpa={vpa}"]
+    if amount_paise is not None:
+        parts.append(f"am={amount_paise}")
+    if note is not None:
+        parts.append(f"tn={note}")
+    if hmac_key is not None:
+        sig_data = "&".join(parts).encode("utf-8")
+        sig = hmac.new(hmac_key, sig_data, hashlib.sha256).hexdigest()
+        parts.append(f"sig={sig}")
+    return f"miniupi://pay?{'&'.join(parts)}"
+
+
 @router.get("/vpa/me", response_model=VpaMeResponse)
 async def get_my_vpa(
+    amount_paise: Annotated[int | None, Query(ge=100)] = None,
+    note: Annotated[str | None, Query(max_length=200)] = None,
+    sign: Annotated[bool, Query()] = False,
     user: User = Depends(get_current_user),
     session: AsyncSession = Depends(get_db),
 ) -> VpaMeResponse:
-    """Return authenticated user's VPAs and static QR payment payload."""
+    """Return authenticated user's VPAs and QR payment payload."""
     settings = get_settings()
     account, primary_vpa = await get_or_create_account_for_user(
         session, user, vpa_suffix=settings.vpa_suffix
     )
     all_handles = [v.handle for v in account.vpas]
-    qr = f"miniupi://pay?vpa={primary_vpa.handle}"
+
+    hmac_key = settings.audit_hmac_key.encode("utf-8") if sign else None
+    qr = format_qr_payload(
+        vpa=primary_vpa.handle,
+        amount_paise=amount_paise,
+        note=note,
+        hmac_key=hmac_key,
+    )
 
     return VpaMeResponse(
         primary_vpa=primary_vpa.handle,

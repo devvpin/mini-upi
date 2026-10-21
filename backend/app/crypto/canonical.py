@@ -62,3 +62,6 @@ def canonical_json_str(obj: Any) -> str:
 def canonical_json(obj: Any) -> bytes:
     """Serialize an object to canonical UTF-8 bytes for hashing/signing."""
     return canonical_json_str(obj).encode("utf-8")
+
+
+canonical_json_bytes = canonical_json

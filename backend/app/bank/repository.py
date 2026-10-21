@@ -186,7 +186,9 @@ async def get_transaction_by_id(
         .options(
             selectinload(Transaction.ledger_entries),
             selectinload(Transaction.payer_account).selectinload(BankAccount.user),
+            selectinload(Transaction.payer_account).selectinload(BankAccount.vpas),
             selectinload(Transaction.payee_account).selectinload(BankAccount.user),
+            selectinload(Transaction.payee_account).selectinload(BankAccount.vpas),
         )
         .where(Transaction.id == txn_id)
     )
@@ -205,7 +207,9 @@ async def list_transactions_for_account(
         select(Transaction)
         .options(
             selectinload(Transaction.payer_account).selectinload(BankAccount.user),
+            selectinload(Transaction.payer_account).selectinload(BankAccount.vpas),
             selectinload(Transaction.payee_account).selectinload(BankAccount.user),
+            selectinload(Transaction.payee_account).selectinload(BankAccount.vpas),
             selectinload(Transaction.ledger_entries),
         )
         .where(
