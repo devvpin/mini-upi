@@ -1,0 +1,31 @@
+[
+  {
+    "description": "Simple object with unsorted keys",
+    "input": { "zebra": 1, "apple": 2, "mango": 3 },
+    "expected": "{\"apple\":2,\"mango\":3,\"zebra\":1}"
+  },
+  {
+    "description": "Nested object and list ordering",
+    "input": {
+      "txn_id": "123e4567-e89b-12d3-a456-426614174000",
+      "amount_paise": 50000,
+      "details": {
+        "to_vpa": "bob@gcet",
+        "from_vpa": "alice@gcet",
+        "note": "Lunch payment"
+      },
+      "tags": ["food", "cafeteria"]
+    },
+    "expected": "{\"amount_paise\":50000,\"details\":{\"from_vpa\":\"alice@gcet\",\"note\":\"Lunch payment\",\"to_vpa\":\"bob@gcet\"},\"tags\":[\"food\",\"cafeteria\"],\"txn_id\":\"123e4567-e89b-12d3-a456-426614174000\"}"
+  },
+  {
+    "description": "Unicode NFC normalization",
+    "input": { "cafe\u0301": "e\u0301clair" },
+    "expected": "{\"café\":\"éclair\"}"
+  },
+  {
+    "description": "Booleans and null values",
+    "input": { "active": true, "revoked": false, "metadata": null },
+    "expected": "{\"active\":true,\"metadata\":null,\"revoked\":false}"
+  }
+]

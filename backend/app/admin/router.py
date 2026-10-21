@@ -156,23 +156,49 @@ async def audit_verify_ledger(
     _admin: User = Depends(require_role("admin", "auditor")),
 ) -> dict[str, Any]:
     """
-    Verify the mathematical consistency of the double-entry ledger:
-    - Global zero-sum invariant (sum of all balances = 0)
-    - Double-entry debit/credit equality
-    - Historical replay from entry 1 to current balance
+    Verify the cryptographic and mathematical consistency of the system:
+    1. Global zero-sum double-entry ledger invariant.
+    2. Tamper-evident hash-chained audit log with HMAC authentication.
     """
     from app.bank.verifier import verify_ledger
+    from app.core.config import get_settings
+    from app.crypto.chain import verify_audit_chain
 
-    report = await verify_ledger(session)
+    ledger_report = await verify_ledger(session)
+
+    settings = get_settings()
+    chain_report = await verify_audit_chain(
+        session, settings.audit_hmac_key.encode("utf-8")
+    )
+
+    overall_ok = ledger_report.ok and bool(chain_report["ok"])
+
     return {
-        "ok": report.ok,
-        "total_wallets": report.total_wallets,
-        "sum_wallet_balances_paise": report.sum_wallet_balances_paise,
-        "zero_sum_verified": report.zero_sum_verified,
-        "total_transactions": report.total_transactions,
-        "balanced_entries_verified": report.balanced_entries_verified,
-        "history_replay_verified": report.history_replay_verified,
-        "errors": report.errors,
+        "ok": overall_ok,
+        "zero_sum_verified": ledger_report.zero_sum_verified,
+        "sum_wallet_balances_paise": ledger_report.sum_wallet_balances_paise,
+        "total_wallets": ledger_report.total_wallets,
+        "total_transactions": ledger_report.total_transactions,
+        "balanced_entries_verified": ledger_report.balanced_entries_verified,
+        "history_replay_verified": ledger_report.history_replay_verified,
+        "ledger": {
+            "ok": ledger_report.ok,
+            "total_wallets": ledger_report.total_wallets,
+            "sum_wallet_balances_paise": ledger_report.sum_wallet_balances_paise,
+            "zero_sum_verified": ledger_report.zero_sum_verified,
+            "total_transactions": ledger_report.total_transactions,
+            "balanced_entries_verified": ledger_report.balanced_entries_verified,
+            "history_replay_verified": ledger_report.history_replay_verified,
+            "errors": ledger_report.errors,
+        },
+        "chain": chain_report,
+        # Top-level fields for convenience
+        "head_hash": chain_report["head_hash"],
+        "checked": chain_report["checked"],
+        "first_bad_seq": chain_report["first_bad_seq"],
+        "errors": (
+            ledger_report.errors + ([chain_report["error"]] if chain_report.get("error") else [])
+        ),
     }
 
 
