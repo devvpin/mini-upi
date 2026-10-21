@@ -13,6 +13,7 @@ Threat mitigated: XSS, clickjacking, MIME-type confusion, cross-origin attacks.
 
 from __future__ import annotations
 
+import asyncio
 from collections.abc import AsyncIterator, Awaitable, Callable
 from contextlib import asynccontextmanager
 
@@ -22,7 +23,7 @@ from starlette.requests import Request
 from starlette.responses import JSONResponse, Response
 
 from app.core.config import get_settings
-from app.core.database import check_db_connection
+from app.core.database import async_session_factory, check_db_connection
 from app.core.errors import AppError, app_error_handler
 from app.core.logging import (
     RequestIdMiddleware,
@@ -41,7 +42,21 @@ async def lifespan(app: FastAPI) -> AsyncIterator[None]:
         env=get_settings().app_env,
         demo_mode=get_settings().demo_mode,
     )
-    yield
+
+    async def expire_collect_requests_periodically() -> None:
+        from app.psp.service import expire_collect_requests
+
+        while True:
+            await asyncio.sleep(60)
+            async with async_session_factory() as session:
+                await expire_collect_requests(session)
+
+    expiry_task = asyncio.create_task(expire_collect_requests_periodically())
+    try:
+        yield
+    finally:
+        expiry_task.cancel()
+        await asyncio.gather(expiry_task, return_exceptions=True)
     log.info("mini_upi_shutdown")
 
 

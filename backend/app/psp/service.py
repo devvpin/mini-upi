@@ -76,6 +76,26 @@ async def _log_audit_rejection(
     await session.commit()
 
 
+async def expire_collect_requests(session: AsyncSession) -> int:
+    """Mark pending collect requests past their expiry time as expired."""
+    from app.bank.models import CollectRequest, CollectStatus
+
+    now = datetime.now(UTC)
+    rows = (
+        await session.execute(
+            select(CollectRequest).where(
+                CollectRequest.status == CollectStatus.PENDING,
+                CollectRequest.expires_at <= now,
+            )
+        )
+    ).scalars().all()
+    for row in rows:
+        row.status = CollectStatus.EXPIRED
+    if rows:
+        await session.commit()
+    return len(rows)
+
+
 async def psp_process_payment(
     session: AsyncSession,
     current_user: User,

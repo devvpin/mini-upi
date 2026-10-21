@@ -11,18 +11,16 @@ import uuid
 from datetime import UTC, datetime, timedelta
 from typing import Annotated, Any
 
-from fastapi import APIRouter, Depends, Header, HTTPException, Path, Query, status
+from fastapi import APIRouter, Depends, Header, HTTPException, Path, status
 from pydantic import BaseModel, Field
 from sqlalchemy import desc, select
-from sqlalchemy.orm import selectinload
 from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.orm import selectinload
 
 from app.bank.models import (
     BankAccount,
     CollectRequest,
     CollectStatus,
-    Transaction,
-    Vpa,
 )
 from app.bank.repository import (
     get_or_create_account_for_user,
@@ -34,13 +32,13 @@ from app.core.config import get_settings
 from app.core.database import get_db
 from app.core.errors import AppError, payee_not_found
 from app.crypto.chain import verify_audit_chain
-from app.crypto.pki import load_certificate_pem, verify_certificate
+from app.crypto.pki import load_certificate_pem
 from app.crypto.server_key import get_root_ca
 from app.identity.deps import get_current_user
 from app.identity.models import User, UserRole
 from app.messaging.crypto import verify_bank_receipt
 from app.messaging.schemas import BankReceipt
-from app.psp.service import psp_process_payment
+from app.psp.service import expire_collect_requests, psp_process_payment
 
 router = APIRouter(prefix="", tags=["payments"])
 
@@ -193,6 +191,7 @@ async def list_incoming_collect_requests(
 ) -> list[CollectRequestResponse]:
     """List pending collect requests addressed to the authenticated user."""
     settings = get_settings()
+    await expire_collect_requests(session)
     account, _ = await get_or_create_account_for_user(session, current_user, vpa_suffix=settings.vpa_suffix)
 
     now = datetime.now(UTC)
@@ -258,6 +257,7 @@ async def approve_collect_request(
         raise HTTPException(status_code=404, detail="Collect request not found")
 
     settings = get_settings()
+    await expire_collect_requests(session)
     account, _ = await get_or_create_account_for_user(session, current_user, vpa_suffix=settings.vpa_suffix)
     if collect.payer_account_id != account.id:
         raise AppError(403, "AUTH_FAILED", "You cannot approve a collect request not addressed to you.")

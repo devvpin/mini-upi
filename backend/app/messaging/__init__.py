@@ -19,15 +19,15 @@ from app.messaging.schemas import (
 )
 
 __all__ = [
-    "PaymentPayload",
+    "BankReceipt",
     "InnerPaymentRequest",
+    "PaymentPayload",
     "PspToSwitchMessage",
     "SwitchToBankMessage",
-    "BankReceipt",
-    "sign_psp_message",
-    "verify_psp_message",
-    "create_switch_to_bank_message",
-    "verify_switch_to_bank_message",
     "create_bank_receipt",
+    "create_switch_to_bank_message",
+    "sign_psp_message",
     "verify_bank_receipt",
+    "verify_psp_message",
+    "verify_switch_to_bank_message",
 ]
