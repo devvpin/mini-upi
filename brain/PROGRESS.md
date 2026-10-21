@@ -10,8 +10,8 @@ Update this file at the end of every phase. Agents: work only on the phase marke
 | 3 | Crypto core | DONE | ☑ | 2026-10-21 |
 | 4 | Payment engine | DONE | ☑ | 2026-10-21 |
 | 5 | Frontend | DONE | ☑ | 2026-10-21 |
-| 6 | Hardening & attack demos | NOT STARTED | ☐ | |
-| 7 | Deploy & present | NOT STARTED | ☐ | |
+| 6 | Hardening & attack demos | DONE | ☑ | 2026-10-21 |
+| 7 | Deploy & present | IN PROGRESS | ☐ | |
 
 ## Decisions
 (append: date · phase · decision · reason)
@@ -24,6 +24,7 @@ Update this file at the end of every phase. Agents: work only on the phase marke
 - 2026-10-21 · Phase 4 · PostgreSQL deployment benchmark completed with 200 payments at p95 231.12 ms; fixed native PostgreSQL enum bindings and loading of the configured CA key/certificate pair.
 - 2026-10-21 · Phase 5 · Built the first complete Hive UI vertical slice with hand-written primitives, responsive wallet screens, payment flow, transaction Security Lens, profile QR, and admin controls; browser integration and accessibility gates remain for final completion.
 - 2026-10-21 · Phase 5 · Wired login and browser payments to the real API with WebCrypto device signing, ECDH envelope encryption, bank receipt verification, and demo ciphertext tampering; build, unit, and Playwright smoke gates passed.
+- 2026-10-21 · Phase 6 · Added security headers/CSP/HSTS, sensitive-route rate limits, attack-demo runner, STRIDE threat model, and dependency-audit tracking; all security regression and attack tests passed.
 
 ## Open questions for the author
 - College display name and VPA suffix (default `@gcet`)?
@@ -31,4 +32,4 @@ Update this file at the end of every phase. Agents: work only on the phase marke
 - Initial virtual balance per student/faculty (default ₹1,000 / ₹2,000)?
 
 ## Known issues
-- Phase 6 is ready to begin: the Phase 5 browser flow, smoke test, and responsive UI gates are complete.
+- Phase 7 is ready to begin: Phase 6 attack demonstrations and hardening tests are complete. npm audit reports two moderate React Router advisories requiring a future major upgrade; no high/critical frontend findings were reported.

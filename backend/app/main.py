@@ -14,6 +14,7 @@ Threat mitigated: XSS, clickjacking, MIME-type confusion, cross-origin attacks.
 from __future__ import annotations
 
 import asyncio
+import time
 from collections.abc import AsyncIterator, Awaitable, Callable
 from contextlib import asynccontextmanager
 
@@ -96,6 +97,37 @@ def create_app() -> FastAPI:
         allow_headers=["*"],
         allow_credentials=True,
     )
+    request_limits: dict[tuple[str, str], list[float]] = {}
+    limit_rules = {
+        ("/auth/login", "POST"): (5, 60),
+        ("/payments/pay", "POST"): (20, 60),
+        ("/payments/collect", "POST"): (20, 60),
+    }
+
+    @app.middleware("http")
+    async def rate_limit_sensitive_routes(
+        request: Request,
+        call_next: Callable[[Request], Awaitable[Response]],
+    ) -> Response:
+        rule = limit_rules.get((request.url.path.removeprefix("/api/v1"), request.method))
+        if rule:
+            maximum, window = rule
+            key = (request.client.host if request.client else "unknown", request.url.path)
+            now = time.monotonic()
+            recent = [stamp for stamp in request_limits.get(key, []) if now - stamp < window]
+            if len(recent) >= maximum:
+                return JSONResponse(
+                    status_code=429,
+                    content={
+                        "error": {
+                            "code": "RATE_LIMITED",
+                            "message": "Too many requests. Try again later.",
+                        }
+                    },
+                )
+            recent.append(now)
+            request_limits[key] = recent
+        return await call_next(request)
 
     # ── Security headers ────────────────────────────────────────────────
     @app.middleware("http")
@@ -107,6 +139,12 @@ def create_app() -> FastAPI:
         response.headers["X-Content-Type-Options"] = "nosniff"
         response.headers["Referrer-Policy"] = "no-referrer"
         response.headers["X-Frame-Options"] = "DENY"
+        response.headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains"
+        response.headers["Content-Security-Policy"] = (
+            "default-src 'self'; connect-src 'self'; img-src 'self' data:; "
+            "style-src 'self' 'unsafe-inline'; script-src 'self'; "
+            "frame-ancestors 'none'; base-uri 'self'"
+        )
         return response
 
     # ── Health endpoints ────────────────────────────────────────────────

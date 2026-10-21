@@ -1,7 +1,7 @@
 # Mini-UPI Makefile
 # Usage: make up | make test | make lint | make migrate
 
-.PHONY: up down test lint migrate format logs
+.PHONY: up down test lint migrate format logs attacks
 
 # ── Docker ──────────────────────────────────────────────────────────────────
 up:
@@ -26,6 +26,9 @@ test:
 
 test-docker:
 	docker compose exec api python -m pytest tests/ -v --tb=short
+
+attacks:
+	cd backend && python -m pytest tests/test_phase3.py tests/test_phase4.py tests/test_phase6.py -v --tb=short
 
 # ── Linting ─────────────────────────────────────────────────────────────────
 lint:
