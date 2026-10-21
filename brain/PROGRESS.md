@@ -21,7 +21,7 @@ Update this file at the end of every phase. Agents: work only on the phase marke
 - 2026-10-21 · Phase 3 · Implemented cross-platform canonical JSON serializer, WebCrypto non-extractable ECDSA P-256 device keys with raw IEEE P1363 / DER signature interoperability, hybrid envelope encryption (ECDH + HKDF + AES-256-GCM) with AAD binding, X.509 v3 Mini-PKI role-constrained certificate authority, HMAC service message integrity, SHA-256 hash-chained audit log with sequence pinpointing, and MPIN 3-strike lockout.
 
 ## Deviations from the brain
-(append: what differs and why)
+- 2026-10-21 · Phase 4 · Functional payment gate and a 200-request benchmark passed in-process with SQLite (p95 65.4 ms), but the required 2-vCPU PostgreSQL deployment benchmark could not run because local Compose secrets and database configuration are not provisioned.
 
 ## Open questions for the author
 - College display name and VPA suffix (default `@gcet`)?
@@ -29,4 +29,4 @@ Update this file at the end of every phase. Agents: work only on the phase marke
 - Initial virtual balance per student/faculty (default ₹1,000 / ₹2,000)?
 
 ## Known issues
-(none yet)
+- Phase 4 deployment-specific load gate remains pending: run 200 simulated payments against the PostgreSQL Compose stack and record p95 < 800 ms before marking Phase 4 DONE.
