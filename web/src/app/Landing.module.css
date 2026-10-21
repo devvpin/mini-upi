@@ -41,6 +41,19 @@
   position: relative;
 }
 
+.login {
+  display: grid;
+  gap: var(--s-4);
+  width: min(100%, 360px);
+  padding: var(--s-5);
+  text-align: left;
+  background: color-mix(in srgb, var(--bg-1) 88%, transparent);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  position: relative;
+  margin-bottom: var(--s-5);
+}
+
 .landing__status {
   display: flex;
   gap: var(--s-4);

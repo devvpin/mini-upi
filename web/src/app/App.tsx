@@ -1,5 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Landing } from './Landing';
+import { Dashboard } from './Dashboard';
+import { useState } from 'react';
 
 /**
  * Root application component.
@@ -8,6 +10,7 @@ import { Landing } from './Landing';
  * Subsequent phases add auth, wallet, pay, history, admin routes.
  */
 export function App() {
+  const [signedIn, setSignedIn] = useState(false);
   return (
     <>
       {/* Simulation ribbon — always visible (brain/07 requirement) */}
@@ -17,7 +20,7 @@ export function App() {
 
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Landing />} />
+          <Route path="/" element={signedIn ? <Dashboard onLogout={() => setSignedIn(false)} /> : <Landing onLogin={() => setSignedIn(true)} />} />
         </Routes>
       </BrowserRouter>
     </>

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import styles from './Landing.module.css';
+import { Button, Input } from '../components/UI';
 
 type Status = 'loading' | 'ok' | 'error';
 
@@ -9,7 +10,7 @@ type Status = 'loading' | 'ok' | 'error';
  * Shows the project title, simulation notice, and live health/ready
  * status from the backend (proves the stack is wired up).
  */
-export function Landing() {
+export function Landing({ onLogin }: { onLogin: () => void }) {
   const [health, setHealth] = useState<Status>('loading');
   const [ready, setReady] = useState<Status>('loading');
 
@@ -39,6 +40,11 @@ export function Landing() {
         Secure campus payment simulation.
         Demonstrating real cryptographic protocols with virtual money.
       </p>
+      <form className={styles.login} onSubmit={(event) => { event.preventDefault(); onLogin(); }}>
+        <Input label="College ID" placeholder="e.g. 22IT002" required />
+        <Input label="Password" type="password" placeholder="Your password" required />
+        <Button type="submit">Enter campus wallet</Button>
+      </form>
       <div className={styles.landing__status}>
         <div className={styles.landing__badge}>
           <span className={`${styles.landing__dot} ${dotClass(health)}`} />
