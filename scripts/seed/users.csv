@@ -1,0 +1,225 @@
+college_id,full_name,email,role,department_code,class_name,initial_password
+admin01,Campus Administrator,admin01@gcet.edu,admin,cp,,AdminPassword@123
+admin02,Deputy Administrator,admin02@gcet.edu,admin,it,,AdminPassword@123
+fac_cp_01,Prof. Vihaan Desai,fac_cp_01@gcet.edu,faculty,cp,,FacultyPassword@123
+fac_cp_02,Prof. Reyansh Pandya,fac_cp_02@gcet.edu,faculty,cp,,FacultyPassword@123
+fac_it_01,Prof. Ishaan Rao,fac_it_01@gcet.edu,faculty,it,,FacultyPassword@123
+fac_it_02,Prof. Advik Patel,fac_it_02@gcet.edu,faculty,it,,FacultyPassword@123
+fac_ec_01,Prof. Aaryan Desai,fac_ec_01@gcet.edu,faculty,ec,,FacultyPassword@123
+fac_ec_02,Prof. Ritvik Pandya,fac_ec_02@gcet.edu,faculty,ec,,FacultyPassword@123
+fac_ee_01,Prof. Diya Rao,fac_ee_01@gcet.edu,faculty,ee,,FacultyPassword@123
+fac_ee_02,Prof. Kavya Patel,fac_ee_02@gcet.edu,faculty,ee,,FacultyPassword@123
+fac_me_01,Prof. Pooja Desai,fac_me_01@gcet.edu,faculty,me,,FacultyPassword@123
+fac_me_02,Prof. Roshni Pandya,fac_me_02@gcet.edu,faculty,me,,FacultyPassword@123
+fac_ce_01,Prof. Shreya Rao,fac_ce_01@gcet.edu,faculty,ce,,FacultyPassword@123
+fac_ce_02,Prof. Vanshika Patel,fac_ce_02@gcet.edu,faculty,ce,,FacultyPassword@123
+fac_ch_01,Prof. Meera Desai,fac_ch_01@gcet.edu,faculty,ch,,FacultyPassword@123
+fac_ch_02,Prof. Aditya Pandya,fac_ch_02@gcet.edu,faculty,ch,,FacultyPassword@123
+fac_mc_01,Prof. Sai Rao,fac_mc_01@gcet.edu,faculty,mc,,FacultyPassword@123
+fac_mc_02,Prof. Krishna Patel,fac_mc_02@gcet.edu,faculty,mc,,FacultyPassword@123
+fac_ai_01,Prof. Atharva Desai,fac_ai_01@gcet.edu,faculty,ai,,FacultyPassword@123
+fac_ai_02,Prof. Advaith Pandya,fac_ai_02@gcet.edu,faculty,ai,,FacultyPassword@123
+fac_ic_01,Prof. Kabir Rao,fac_ic_01@gcet.edu,faculty,ic,,FacultyPassword@123
+fac_ic_02,Prof. Ananya Patel,fac_ic_02@gcet.edu,faculty,ic,,FacultyPassword@123
+fac_ash_01,Prof. Ishita Desai,fac_ash_01@gcet.edu,faculty,ash,,FacultyPassword@123
+fac_ash_02,Prof. Navya Pandya,fac_ash_02@gcet.edu,faculty,ash,,FacultyPassword@123
+22as001,Ayaan Dave,22as001@gcet.edu,student,ash,FY-CP-A,StudentPassword@123
+22as002,Advaith Sharma,22as002@gcet.edu,student,ash,FY-CP-B,StudentPassword@123
+22as003,Diya Iyer,22as003@gcet.edu,student,ash,FY-IT,StudentPassword@123
+22as004,Priya Mehta,22as004@gcet.edu,student,ash,FY-EC,StudentPassword@123
+22as005,Tanvi Rao,22as005@gcet.edu,student,ash,FY-EE,StudentPassword@123
+22as006,Aditya Joshi,22as006@gcet.edu,student,ash,FY-ME,StudentPassword@123
+22as007,Ishaan Gupta,22as007@gcet.edu,student,ash,FY-CE,StudentPassword@123
+22as008,Dhruv Chauhan,22as008@gcet.edu,student,ash,FY-CH,StudentPassword@123
+22as009,Ishita Kumar,22as009@gcet.edu,student,ash,FY-MC,StudentPassword@123
+22cp010,Roshni Pandya,22cp010@gcet.edu,student,cp,SY-CP-A,StudentPassword@123
+22cp011,Zara Shah,22cp011@gcet.edu,student,cp,SY-CP-B,StudentPassword@123
+22it012,Arjun Kulkarni,22it012@gcet.edu,student,it,SY-IT,StudentPassword@123
+22ec013,Atharva Verma,22ec013@gcet.edu,student,ec,SY-EC,StudentPassword@123
+22ee014,Ritvik Nair,22ee014@gcet.edu,student,ee,SY-EE,StudentPassword@123
+22me015,Khushi Desai,22me015@gcet.edu,student,me,SY-ME,StudentPassword@123
+22ce016,Sara Reddy,22ce016@gcet.edu,student,ce,SY-CE,StudentPassword@123
+22ch017,Meera Bhatt,22ch017@gcet.edu,student,ch,SY-CH,StudentPassword@123
+22cp018,Reyansh Singh,22cp018@gcet.edu,student,cp,TY-CP-A,StudentPassword@123
+22cp019,Pranav Trivedi,22cp019@gcet.edu,student,cp,TY-CP-B,StudentPassword@123
+22it020,Ananya Patel,22it020@gcet.edu,student,it,TY-IT-A,StudentPassword@123
+22it021,Pooja Dave,22it021@gcet.edu,student,it,TY-IT-B,StudentPassword@123
+22ec022,Sneha Sharma,22ec022@gcet.edu,student,ec,TY-EC,StudentPassword@123
+22ee023,Vivaan Iyer,22ee023@gcet.edu,student,ee,TY-EE,StudentPassword@123
+22me024,Krishna Mehta,22me024@gcet.edu,student,me,TY-ME,StudentPassword@123
+22ce025,Aaryan Rao,22ce025@gcet.edu,student,ce,TY-CE,StudentPassword@123
+22ch026,Gauri Joshi,22ch026@gcet.edu,student,ch,TY-CH,StudentPassword@123
+22mc027,Riya Gupta,22mc027@gcet.edu,student,mc,TY-MC,StudentPassword@123
+22ai028,Vanshika Chauhan,22ai028@gcet.edu,student,ai,TY-AI,StudentPassword@123
+22cp029,Vihaan Kumar,22cp029@gcet.edu,student,cp,LY-CP-A,StudentPassword@123
+22cp030,Shaurya Pandya,22cp030@gcet.edu,student,cp,LY-CP-B,StudentPassword@123
+22it031,Kabir Shah,22it031@gcet.edu,student,it,LY-IT-A,StudentPassword@123
+22it032,Kavya Kulkarni,22it032@gcet.edu,student,it,LY-IT-B,StudentPassword@123
+22ec033,Saanvi Verma,22ec033@gcet.edu,student,ec,LY-EC,StudentPassword@123
+22ee034,Aarohi Nair,22ee034@gcet.edu,student,ee,LY-EE,StudentPassword@123
+22me035,Sai Desai,22me035@gcet.edu,student,me,LY-ME,StudentPassword@123
+22ce036,Advik Reddy,22ce036@gcet.edu,student,ce,LY-CE,StudentPassword@123
+22ch037,Darsh Bhatt,22ch037@gcet.edu,student,ch,LY-CH,StudentPassword@123
+22mc038,Navya Singh,22mc038@gcet.edu,student,mc,LY-MC,StudentPassword@123
+22ai039,Shreya Trivedi,22ai039@gcet.edu,student,ai,LY-AI,StudentPassword@123
+22as040,Aarav Patel,22as040@gcet.edu,student,ash,FY-CP-A,StudentPassword@123
+22as041,Ayaan Dave,22as041@gcet.edu,student,ash,FY-CP-B,StudentPassword@123
+22as042,Advaith Sharma,22as042@gcet.edu,student,ash,FY-IT,StudentPassword@123
+22as043,Diya Iyer,22as043@gcet.edu,student,ash,FY-EC,StudentPassword@123
+22as044,Priya Mehta,22as044@gcet.edu,student,ash,FY-EE,StudentPassword@123
+22as045,Tanvi Rao,22as045@gcet.edu,student,ash,FY-ME,StudentPassword@123
+22as046,Aditya Joshi,22as046@gcet.edu,student,ash,FY-CE,StudentPassword@123
+22as047,Ishaan Gupta,22as047@gcet.edu,student,ash,FY-CH,StudentPassword@123
+22as048,Dhruv Chauhan,22as048@gcet.edu,student,ash,FY-MC,StudentPassword@123
+22cp049,Ishita Kumar,22cp049@gcet.edu,student,cp,SY-CP-A,StudentPassword@123
+22cp050,Roshni Pandya,22cp050@gcet.edu,student,cp,SY-CP-B,StudentPassword@123
+22it051,Zara Shah,22it051@gcet.edu,student,it,SY-IT,StudentPassword@123
+22ec052,Arjun Kulkarni,22ec052@gcet.edu,student,ec,SY-EC,StudentPassword@123
+22ee053,Atharva Verma,22ee053@gcet.edu,student,ee,SY-EE,StudentPassword@123
+22me054,Ritvik Nair,22me054@gcet.edu,student,me,SY-ME,StudentPassword@123
+22ce055,Khushi Desai,22ce055@gcet.edu,student,ce,SY-CE,StudentPassword@123
+22ch056,Sara Reddy,22ch056@gcet.edu,student,ch,SY-CH,StudentPassword@123
+22cp057,Meera Bhatt,22cp057@gcet.edu,student,cp,TY-CP-A,StudentPassword@123
+22cp058,Reyansh Singh,22cp058@gcet.edu,student,cp,TY-CP-B,StudentPassword@123
+22it059,Pranav Trivedi,22it059@gcet.edu,student,it,TY-IT-A,StudentPassword@123
+22it060,Ananya Patel,22it060@gcet.edu,student,it,TY-IT-B,StudentPassword@123
+22ec061,Pooja Dave,22ec061@gcet.edu,student,ec,TY-EC,StudentPassword@123
+22ee062,Sneha Sharma,22ee062@gcet.edu,student,ee,TY-EE,StudentPassword@123
+22me063,Vivaan Iyer,22me063@gcet.edu,student,me,TY-ME,StudentPassword@123
+22ce064,Krishna Mehta,22ce064@gcet.edu,student,ce,TY-CE,StudentPassword@123
+22ch065,Aaryan Rao,22ch065@gcet.edu,student,ch,TY-CH,StudentPassword@123
+22mc066,Gauri Joshi,22mc066@gcet.edu,student,mc,TY-MC,StudentPassword@123
+22ai067,Riya Gupta,22ai067@gcet.edu,student,ai,TY-AI,StudentPassword@123
+22cp068,Vanshika Chauhan,22cp068@gcet.edu,student,cp,LY-CP-A,StudentPassword@123
+22cp069,Vihaan Kumar,22cp069@gcet.edu,student,cp,LY-CP-B,StudentPassword@123
+22it070,Shaurya Pandya,22it070@gcet.edu,student,it,LY-IT-A,StudentPassword@123
+22it071,Kabir Shah,22it071@gcet.edu,student,it,LY-IT-B,StudentPassword@123
+22ec072,Kavya Kulkarni,22ec072@gcet.edu,student,ec,LY-EC,StudentPassword@123
+22ee073,Saanvi Verma,22ee073@gcet.edu,student,ee,LY-EE,StudentPassword@123
+22me074,Aarohi Nair,22me074@gcet.edu,student,me,LY-ME,StudentPassword@123
+22ce075,Sai Desai,22ce075@gcet.edu,student,ce,LY-CE,StudentPassword@123
+22ch076,Advik Reddy,22ch076@gcet.edu,student,ch,LY-CH,StudentPassword@123
+22mc077,Darsh Bhatt,22mc077@gcet.edu,student,mc,LY-MC,StudentPassword@123
+22ai078,Navya Singh,22ai078@gcet.edu,student,ai,LY-AI,StudentPassword@123
+22as079,Shreya Trivedi,22as079@gcet.edu,student,ash,FY-CP-A,StudentPassword@123
+22as080,Aarav Patel,22as080@gcet.edu,student,ash,FY-CP-B,StudentPassword@123
+22as081,Ayaan Dave,22as081@gcet.edu,student,ash,FY-IT,StudentPassword@123
+22as082,Advaith Sharma,22as082@gcet.edu,student,ash,FY-EC,StudentPassword@123
+22as083,Diya Iyer,22as083@gcet.edu,student,ash,FY-EE,StudentPassword@123
+22as084,Priya Mehta,22as084@gcet.edu,student,ash,FY-ME,StudentPassword@123
+22as085,Tanvi Rao,22as085@gcet.edu,student,ash,FY-CE,StudentPassword@123
+22as086,Aditya Joshi,22as086@gcet.edu,student,ash,FY-CH,StudentPassword@123
+22as087,Ishaan Gupta,22as087@gcet.edu,student,ash,FY-MC,StudentPassword@123
+22cp088,Dhruv Chauhan,22cp088@gcet.edu,student,cp,SY-CP-A,StudentPassword@123
+22cp089,Ishita Kumar,22cp089@gcet.edu,student,cp,SY-CP-B,StudentPassword@123
+22it090,Roshni Pandya,22it090@gcet.edu,student,it,SY-IT,StudentPassword@123
+22ec091,Zara Shah,22ec091@gcet.edu,student,ec,SY-EC,StudentPassword@123
+22ee092,Arjun Kulkarni,22ee092@gcet.edu,student,ee,SY-EE,StudentPassword@123
+22me093,Atharva Verma,22me093@gcet.edu,student,me,SY-ME,StudentPassword@123
+22ce094,Ritvik Nair,22ce094@gcet.edu,student,ce,SY-CE,StudentPassword@123
+22ch095,Khushi Desai,22ch095@gcet.edu,student,ch,SY-CH,StudentPassword@123
+22cp096,Sara Reddy,22cp096@gcet.edu,student,cp,TY-CP-A,StudentPassword@123
+22cp097,Meera Bhatt,22cp097@gcet.edu,student,cp,TY-CP-B,StudentPassword@123
+22it098,Reyansh Singh,22it098@gcet.edu,student,it,TY-IT-A,StudentPassword@123
+22it099,Pranav Trivedi,22it099@gcet.edu,student,it,TY-IT-B,StudentPassword@123
+22ec100,Ananya Patel,22ec100@gcet.edu,student,ec,TY-EC,StudentPassword@123
+22ee101,Pooja Dave,22ee101@gcet.edu,student,ee,TY-EE,StudentPassword@123
+22me102,Sneha Sharma,22me102@gcet.edu,student,me,TY-ME,StudentPassword@123
+22ce103,Vivaan Iyer,22ce103@gcet.edu,student,ce,TY-CE,StudentPassword@123
+22ch104,Krishna Mehta,22ch104@gcet.edu,student,ch,TY-CH,StudentPassword@123
+22mc105,Aaryan Rao,22mc105@gcet.edu,student,mc,TY-MC,StudentPassword@123
+22ai106,Gauri Joshi,22ai106@gcet.edu,student,ai,TY-AI,StudentPassword@123
+22cp107,Riya Gupta,22cp107@gcet.edu,student,cp,LY-CP-A,StudentPassword@123
+22cp108,Vanshika Chauhan,22cp108@gcet.edu,student,cp,LY-CP-B,StudentPassword@123
+22it109,Vihaan Kumar,22it109@gcet.edu,student,it,LY-IT-A,StudentPassword@123
+22it110,Shaurya Pandya,22it110@gcet.edu,student,it,LY-IT-B,StudentPassword@123
+22ec111,Kabir Shah,22ec111@gcet.edu,student,ec,LY-EC,StudentPassword@123
+22ee112,Kavya Kulkarni,22ee112@gcet.edu,student,ee,LY-EE,StudentPassword@123
+22me113,Saanvi Verma,22me113@gcet.edu,student,me,LY-ME,StudentPassword@123
+22ce114,Aarohi Nair,22ce114@gcet.edu,student,ce,LY-CE,StudentPassword@123
+22ch115,Sai Desai,22ch115@gcet.edu,student,ch,LY-CH,StudentPassword@123
+22mc116,Advik Reddy,22mc116@gcet.edu,student,mc,LY-MC,StudentPassword@123
+22ai117,Darsh Bhatt,22ai117@gcet.edu,student,ai,LY-AI,StudentPassword@123
+22as118,Navya Singh,22as118@gcet.edu,student,ash,FY-CP-A,StudentPassword@123
+22as119,Shreya Trivedi,22as119@gcet.edu,student,ash,FY-CP-B,StudentPassword@123
+22as120,Aarav Patel,22as120@gcet.edu,student,ash,FY-IT,StudentPassword@123
+22as121,Ayaan Dave,22as121@gcet.edu,student,ash,FY-EC,StudentPassword@123
+22as122,Advaith Sharma,22as122@gcet.edu,student,ash,FY-EE,StudentPassword@123
+22as123,Diya Iyer,22as123@gcet.edu,student,ash,FY-ME,StudentPassword@123
+22as124,Priya Mehta,22as124@gcet.edu,student,ash,FY-CE,StudentPassword@123
+22as125,Tanvi Rao,22as125@gcet.edu,student,ash,FY-CH,StudentPassword@123
+22as126,Aditya Joshi,22as126@gcet.edu,student,ash,FY-MC,StudentPassword@123
+22cp127,Ishaan Gupta,22cp127@gcet.edu,student,cp,SY-CP-A,StudentPassword@123
+22cp128,Dhruv Chauhan,22cp128@gcet.edu,student,cp,SY-CP-B,StudentPassword@123
+22it129,Ishita Kumar,22it129@gcet.edu,student,it,SY-IT,StudentPassword@123
+22ec130,Roshni Pandya,22ec130@gcet.edu,student,ec,SY-EC,StudentPassword@123
+22ee131,Zara Shah,22ee131@gcet.edu,student,ee,SY-EE,StudentPassword@123
+22me132,Arjun Kulkarni,22me132@gcet.edu,student,me,SY-ME,StudentPassword@123
+22ce133,Atharva Verma,22ce133@gcet.edu,student,ce,SY-CE,StudentPassword@123
+22ch134,Ritvik Nair,22ch134@gcet.edu,student,ch,SY-CH,StudentPassword@123
+22cp135,Khushi Desai,22cp135@gcet.edu,student,cp,TY-CP-A,StudentPassword@123
+22cp136,Sara Reddy,22cp136@gcet.edu,student,cp,TY-CP-B,StudentPassword@123
+22it137,Meera Bhatt,22it137@gcet.edu,student,it,TY-IT-A,StudentPassword@123
+22it138,Reyansh Singh,22it138@gcet.edu,student,it,TY-IT-B,StudentPassword@123
+22ec139,Pranav Trivedi,22ec139@gcet.edu,student,ec,TY-EC,StudentPassword@123
+22ee140,Ananya Patel,22ee140@gcet.edu,student,ee,TY-EE,StudentPassword@123
+22me141,Pooja Dave,22me141@gcet.edu,student,me,TY-ME,StudentPassword@123
+22ce142,Sneha Sharma,22ce142@gcet.edu,student,ce,TY-CE,StudentPassword@123
+22ch143,Vivaan Iyer,22ch143@gcet.edu,student,ch,TY-CH,StudentPassword@123
+22mc144,Krishna Mehta,22mc144@gcet.edu,student,mc,TY-MC,StudentPassword@123
+22ai145,Aaryan Rao,22ai145@gcet.edu,student,ai,TY-AI,StudentPassword@123
+22cp146,Gauri Joshi,22cp146@gcet.edu,student,cp,LY-CP-A,StudentPassword@123
+22cp147,Riya Gupta,22cp147@gcet.edu,student,cp,LY-CP-B,StudentPassword@123
+22it148,Vanshika Chauhan,22it148@gcet.edu,student,it,LY-IT-A,StudentPassword@123
+22it149,Vihaan Kumar,22it149@gcet.edu,student,it,LY-IT-B,StudentPassword@123
+22ec150,Shaurya Pandya,22ec150@gcet.edu,student,ec,LY-EC,StudentPassword@123
+22ee151,Kabir Shah,22ee151@gcet.edu,student,ee,LY-EE,StudentPassword@123
+22me152,Kavya Kulkarni,22me152@gcet.edu,student,me,LY-ME,StudentPassword@123
+22ce153,Saanvi Verma,22ce153@gcet.edu,student,ce,LY-CE,StudentPassword@123
+22ch154,Aarohi Nair,22ch154@gcet.edu,student,ch,LY-CH,StudentPassword@123
+22mc155,Sai Desai,22mc155@gcet.edu,student,mc,LY-MC,StudentPassword@123
+22ai156,Advik Reddy,22ai156@gcet.edu,student,ai,LY-AI,StudentPassword@123
+22as157,Darsh Bhatt,22as157@gcet.edu,student,ash,FY-CP-A,StudentPassword@123
+22as158,Navya Singh,22as158@gcet.edu,student,ash,FY-CP-B,StudentPassword@123
+22as159,Shreya Trivedi,22as159@gcet.edu,student,ash,FY-IT,StudentPassword@123
+22as160,Aarav Patel,22as160@gcet.edu,student,ash,FY-EC,StudentPassword@123
+22as161,Ayaan Dave,22as161@gcet.edu,student,ash,FY-EE,StudentPassword@123
+22as162,Advaith Sharma,22as162@gcet.edu,student,ash,FY-ME,StudentPassword@123
+22as163,Diya Iyer,22as163@gcet.edu,student,ash,FY-CE,StudentPassword@123
+22as164,Priya Mehta,22as164@gcet.edu,student,ash,FY-CH,StudentPassword@123
+22as165,Tanvi Rao,22as165@gcet.edu,student,ash,FY-MC,StudentPassword@123
+22cp166,Aditya Joshi,22cp166@gcet.edu,student,cp,SY-CP-A,StudentPassword@123
+22cp167,Ishaan Gupta,22cp167@gcet.edu,student,cp,SY-CP-B,StudentPassword@123
+22it168,Dhruv Chauhan,22it168@gcet.edu,student,it,SY-IT,StudentPassword@123
+22ec169,Ishita Kumar,22ec169@gcet.edu,student,ec,SY-EC,StudentPassword@123
+22ee170,Roshni Pandya,22ee170@gcet.edu,student,ee,SY-EE,StudentPassword@123
+22me171,Zara Shah,22me171@gcet.edu,student,me,SY-ME,StudentPassword@123
+22ce172,Arjun Kulkarni,22ce172@gcet.edu,student,ce,SY-CE,StudentPassword@123
+22ch173,Atharva Verma,22ch173@gcet.edu,student,ch,SY-CH,StudentPassword@123
+22cp174,Ritvik Nair,22cp174@gcet.edu,student,cp,TY-CP-A,StudentPassword@123
+22cp175,Khushi Desai,22cp175@gcet.edu,student,cp,TY-CP-B,StudentPassword@123
+22it176,Sara Reddy,22it176@gcet.edu,student,it,TY-IT-A,StudentPassword@123
+22it177,Meera Bhatt,22it177@gcet.edu,student,it,TY-IT-B,StudentPassword@123
+22ec178,Reyansh Singh,22ec178@gcet.edu,student,ec,TY-EC,StudentPassword@123
+22ee179,Pranav Trivedi,22ee179@gcet.edu,student,ee,TY-EE,StudentPassword@123
+22me180,Ananya Patel,22me180@gcet.edu,student,me,TY-ME,StudentPassword@123
+22ce181,Pooja Dave,22ce181@gcet.edu,student,ce,TY-CE,StudentPassword@123
+22ch182,Sneha Sharma,22ch182@gcet.edu,student,ch,TY-CH,StudentPassword@123
+22mc183,Vivaan Iyer,22mc183@gcet.edu,student,mc,TY-MC,StudentPassword@123
+22ai184,Krishna Mehta,22ai184@gcet.edu,student,ai,TY-AI,StudentPassword@123
+22cp185,Aaryan Rao,22cp185@gcet.edu,student,cp,LY-CP-A,StudentPassword@123
+22cp186,Gauri Joshi,22cp186@gcet.edu,student,cp,LY-CP-B,StudentPassword@123
+22it187,Riya Gupta,22it187@gcet.edu,student,it,LY-IT-A,StudentPassword@123
+22it188,Vanshika Chauhan,22it188@gcet.edu,student,it,LY-IT-B,StudentPassword@123
+22ec189,Vihaan Kumar,22ec189@gcet.edu,student,ec,LY-EC,StudentPassword@123
+22ee190,Shaurya Pandya,22ee190@gcet.edu,student,ee,LY-EE,StudentPassword@123
+22me191,Kabir Shah,22me191@gcet.edu,student,me,LY-ME,StudentPassword@123
+22ce192,Kavya Kulkarni,22ce192@gcet.edu,student,ce,LY-CE,StudentPassword@123
+22ch193,Saanvi Verma,22ch193@gcet.edu,student,ch,LY-CH,StudentPassword@123
+22mc194,Aarohi Nair,22mc194@gcet.edu,student,mc,LY-MC,StudentPassword@123
+22ai195,Sai Desai,22ai195@gcet.edu,student,ai,LY-AI,StudentPassword@123
+22as196,Advik Reddy,22as196@gcet.edu,student,ash,FY-CP-A,StudentPassword@123
+22as197,Darsh Bhatt,22as197@gcet.edu,student,ash,FY-CP-B,StudentPassword@123
+22as198,Navya Singh,22as198@gcet.edu,student,ash,FY-IT,StudentPassword@123
+22as199,Shreya Trivedi,22as199@gcet.edu,student,ash,FY-EC,StudentPassword@123
+22as200,Aarav Patel,22as200@gcet.edu,student,ash,FY-EE,StudentPassword@123

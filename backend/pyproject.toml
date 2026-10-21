@@ -42,6 +42,7 @@ line-length = 100
 
 [tool.ruff.lint]
 select = ["E", "F", "W", "I", "UP", "B", "SIM", "RUF"]
+ignore = ["B008"]
 
 [tool.mypy]
 python_version = "3.12"
@@ -58,4 +59,9 @@ testpaths = ["tests"]
 filterwarnings = [
     "error",
     "ignore::DeprecationWarning:pytest_asyncio.*",
+]
+
+[dependency-groups]
+dev = [
+    "aiosqlite>=0.22.1",
 ]

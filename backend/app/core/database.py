@@ -15,6 +15,7 @@ database connections.
 from __future__ import annotations
 
 from collections.abc import AsyncGenerator
+from typing import Any
 
 from sqlalchemy.ext.asyncio import (
     AsyncSession,
@@ -24,11 +25,16 @@ from sqlalchemy.ext.asyncio import (
 
 from app.core.config import get_settings
 
+_engine_kwargs: dict[str, Any] = {
+    "echo": (get_settings().app_env == "development"),
+}
+if not get_settings().database_url.startswith("sqlite"):
+    _engine_kwargs["pool_size"] = 10
+    _engine_kwargs["max_overflow"] = 5
+
 _engine = create_async_engine(
     get_settings().database_url,
-    echo=(get_settings().app_env == "development"),
-    pool_size=10,
-    max_overflow=5,
+    **_engine_kwargs,
 )
 
 async_session_factory = async_sessionmaker(

@@ -59,6 +59,13 @@ def create_app() -> FastAPI:
     # ── Error handlers ──────────────────────────────────────────────────
     app.add_exception_handler(AppError, app_error_handler)  # type: ignore[arg-type]
 
+    # ── API Routers ─────────────────────────────────────────────────────
+    from app.admin.router import router as admin_router
+    from app.identity.router import router as identity_router
+
+    app.include_router(identity_router, prefix="/api/v1")
+    app.include_router(admin_router, prefix="/api/v1")
+
     # ── Middleware (order matters: outermost first) ──────────────────────
     app.add_middleware(RequestIdMiddleware)
     app.add_middleware(
