@@ -18,6 +18,7 @@ from sqlalchemy import (
     Boolean,
     CheckConstraint,
     DateTime,
+    Enum,
     ForeignKey,
     Integer,
     String,
@@ -119,7 +120,14 @@ class Transaction(Base):
     )
 
     id: Mapped[uuid.UUID] = mapped_column(Uuid(as_uuid=True), primary_key=True)
-    kind: Mapped[TxnKind] = mapped_column(String(32), nullable=False)
+    kind: Mapped[TxnKind] = mapped_column(
+        Enum(
+            TxnKind,
+            name="txn_kind",
+            values_callable=lambda values: [value.value for value in values],
+        ),
+        nullable=False,
+    )
     payer_account_id: Mapped[uuid.UUID] = mapped_column(
         Uuid(as_uuid=True), ForeignKey("bank_accounts.id"), nullable=False, index=True
     )
@@ -129,7 +137,13 @@ class Transaction(Base):
     amount_paise: Mapped[int] = mapped_column(BigInteger, nullable=False)
     note: Mapped[str | None] = mapped_column(Text, nullable=True)
     status: Mapped[TxnStatus] = mapped_column(
-        String(32), default=TxnStatus.PENDING, nullable=False
+        Enum(
+            TxnStatus,
+            name="txn_status",
+            values_callable=lambda values: [value.value for value in values],
+        ),
+        default=TxnStatus.PENDING,
+        nullable=False,
     )
     failure_reason: Mapped[str | None] = mapped_column(Text, nullable=True)
     receipt_json: Mapped[dict[str, Any] | None] = mapped_column(JSON, nullable=True)
@@ -165,7 +179,9 @@ class LedgerEntry(Base):
     account_id: Mapped[uuid.UUID] = mapped_column(
         Uuid(as_uuid=True), ForeignKey("bank_accounts.id"), nullable=False, index=True
     )
-    direction: Mapped[LedgerDirection] = mapped_column(String(16), nullable=False)
+    direction: Mapped[LedgerDirection] = mapped_column(
+        String(16), nullable=False
+    )
     amount_paise: Mapped[int] = mapped_column(BigInteger, nullable=False)
     balance_after_paise: Mapped[int] = mapped_column(BigInteger, nullable=False)
     created_at: Mapped[datetime] = mapped_column(

@@ -38,11 +38,13 @@ class Settings(BaseSettings):
 
     # ── Key / cert file paths (Phase 3+) ──────────────────────────────────
     ca_cert_path: str = "/run/secrets/ca_cert.pem"
+    ca_key_path: str = "/run/secrets/ca_key.pem"
     psp_key_path: str = "/run/secrets/psp_key.pem"
     psp_cert_path: str = "/run/secrets/psp_cert.pem"
     bank_key_path: str = "/run/secrets/bank_key.pem"
     bank_cert_path: str = "/run/secrets/bank_cert.pem"
     server_ecdh_key_path: str = "/run/secrets/server_ecdh_key.pem"
+    server_cert_path: str = "/run/secrets/server_cert.pem"
 
     # ── App behaviour ─────────────────────────────────────────────────────
     app_env: Literal["development", "production", "test"] = "development"

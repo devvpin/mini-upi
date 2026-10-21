@@ -40,8 +40,11 @@ def get_root_ca() -> tuple[ec.EllipticCurvePrivateKey, x509.Certificate]:
 
     settings = get_settings()
     ca_path = Path(settings.ca_cert_path)
-    if ca_path.exists():
+    ca_key_path = Path(settings.ca_key_path)
+    if ca_path.exists() and ca_key_path.exists():
         _cached_ca_cert = x509.load_pem_x509_certificate(ca_path.read_bytes())
+        _cached_ca_key = load_private_key_pem(ca_key_path.read_bytes())
+        return _cached_ca_key, _cached_ca_cert
 
     ca_key, ca_cert = generate_ca(validity_days=365)
     _cached_ca_key = ca_key
@@ -112,7 +115,7 @@ def get_server_ecdh_keys() -> tuple[
     settings = get_settings()
 
     key_path = Path(settings.server_ecdh_key_path)
-    cert_path = Path(settings.psp_cert_path)
+    cert_path = Path(settings.server_cert_path)
 
     if key_path.exists() and cert_path.exists():
         _cached_private_key = load_private_key_pem(key_path.read_bytes())

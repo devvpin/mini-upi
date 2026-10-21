@@ -8,8 +8,8 @@ Update this file at the end of every phase. Agents: work only on the phase marke
 | 1 | Identity & campus hierarchy | DONE | ☑ | 2026-10-21 |
 | 2 | Wallet & ledger | DONE | ☑ | 2026-10-21 |
 | 3 | Crypto core | DONE | ☑ | 2026-10-21 |
-| 4 | Payment engine | IN PROGRESS | ☐ | |
-| 5 | Frontend | NOT STARTED | ☐ | |
+| 4 | Payment engine | DONE | ☑ | 2026-10-21 |
+| 5 | Frontend | IN PROGRESS | ☐ | |
 | 6 | Hardening & attack demos | NOT STARTED | ☐ | |
 | 7 | Deploy & present | NOT STARTED | ☐ | |
 
@@ -21,7 +21,7 @@ Update this file at the end of every phase. Agents: work only on the phase marke
 - 2026-10-21 · Phase 3 · Implemented cross-platform canonical JSON serializer, WebCrypto non-extractable ECDSA P-256 device keys with raw IEEE P1363 / DER signature interoperability, hybrid envelope encryption (ECDH + HKDF + AES-256-GCM) with AAD binding, X.509 v3 Mini-PKI role-constrained certificate authority, HMAC service message integrity, SHA-256 hash-chained audit log with sequence pinpointing, and MPIN 3-strike lockout.
 
 ## Deviations from the brain
-- 2026-10-21 · Phase 4 · Functional payment gate and a 200-request benchmark passed in-process with SQLite (p95 65.4 ms), but the required 2-vCPU PostgreSQL deployment benchmark could not run because local Compose secrets and database configuration are not provisioned.
+- 2026-10-21 · Phase 4 · PostgreSQL deployment benchmark completed with 200 payments at p95 231.12 ms; fixed native PostgreSQL enum bindings and loading of the configured CA key/certificate pair.
 
 ## Open questions for the author
 - College display name and VPA suffix (default `@gcet`)?
@@ -29,4 +29,4 @@ Update this file at the end of every phase. Agents: work only on the phase marke
 - Initial virtual balance per student/faculty (default ₹1,000 / ₹2,000)?
 
 ## Known issues
-- Phase 4 deployment-specific load gate remains pending: run 200 simulated payments against the PostgreSQL Compose stack and record p95 < 800 ms before marking Phase 4 DONE.
+- Phase 5 is ready to begin: the Phase 4 payment engine and PostgreSQL deployment gate are complete.

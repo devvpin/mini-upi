@@ -18,6 +18,7 @@ from sqlalchemy import (
     Boolean,
     CheckConstraint,
     DateTime,
+    Enum,
     ForeignKey,
     Integer,
     SmallInteger,
@@ -95,7 +96,10 @@ class User(Base):
     id: Mapped[uuid.UUID] = mapped_column(
         Uuid(as_uuid=True), primary_key=True, default=uuid.uuid4
     )
-    role: Mapped[UserRole] = mapped_column(String(32), nullable=False)
+    role: Mapped[UserRole] = mapped_column(
+        Enum(UserRole, name="user_role", values_callable=lambda values: [value.value for value in values]),
+        nullable=False,
+    )
     college_id: Mapped[str] = mapped_column(Text, unique=True, nullable=False)
     full_name: Mapped[str] = mapped_column(Text, nullable=False)
     email: Mapped[str] = mapped_column(Text, unique=True, nullable=False)
@@ -110,7 +114,13 @@ class User(Base):
     failed_logins: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
     locked_until: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
     status: Mapped[UserStatus] = mapped_column(
-        String(32), default=UserStatus.ACTIVE, nullable=False
+        Enum(
+            UserStatus,
+            name="user_status",
+            values_callable=lambda values: [value.value for value in values],
+        ),
+        default=UserStatus.ACTIVE,
+        nullable=False,
     )
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), server_default=func.now(), nullable=False
