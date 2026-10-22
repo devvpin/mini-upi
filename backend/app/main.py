@@ -99,7 +99,9 @@ def create_app() -> FastAPI:
     )
     request_limits: dict[tuple[str, str], list[float]] = {}
     limit_rules = {
-        ("/auth/login", "POST"): (5, 60),
+        # Per-account login failures lock after five attempts; leave enough
+        # requests for that control to return its explicit locked response.
+        ("/auth/login", "POST"): (10, 60),
         ("/payments/pay", "POST"): (20, 60),
         ("/payments/collect", "POST"): (20, 60),
     }

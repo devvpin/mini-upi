@@ -19,7 +19,7 @@ from datetime import UTC, datetime
 from hashlib import sha256
 from typing import Any
 
-from sqlalchemy import select
+from sqlalchemy import select, text
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.crypto.canonical import canonical_json
@@ -67,6 +67,11 @@ async def append_audit_entry(
     """
     Append an entry to the audit hash chain.
     """
+    # PostgreSQL serialises writers of the one audit-chain head. Without this,
+    # concurrent payments can read the same head and fork the chain.
+    if session.bind is not None and session.bind.dialect.name == "postgresql":
+        await session.execute(text("SELECT pg_advisory_xact_lock(918273645)"))
+
     # Fetch the last entry in the chain
     stmt = select(AuditLog).order_by(AuditLog.seq.desc()).limit(1)
     result = await session.execute(stmt)

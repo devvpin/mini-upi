@@ -34,17 +34,22 @@ export function Dashboard({ token, onLogout }: { token: string; onLogout: () => 
     else if (payStep === "confirm" && mpin.length === 6) {
       setPaymentError(null);
       try {
+        const passwordForSetup = window.prompt("Confirm your password to set the MPIN and bind this browser.") ?? "";
+        if (!passwordForSetup) throw new Error("Password confirmation is required for device binding.");
         const device = await getOrCreateDeviceKey();
         const headers = { Authorization: `Bearer ${token}`, "Content-Type": "application/json" };
-        const mpinSetup = await fetch("/api/v1/mpin/set", { method: "POST", headers, body: JSON.stringify({ mpin }) });
+        const mpinSetup = await fetch("/api/v1/mpin/set", { method: "POST", headers, body: JSON.stringify({ mpin, password: passwordForSetup }) });
         if (!mpinSetup.ok) throw new Error("Could not configure the six-digit MPIN.");
-        const registration = await fetch("/api/v1/devices/register", { method: "POST", headers, body: JSON.stringify({ public_key_jwk: await exportPublicKeyJwk(device.publicKey), label: "browser" }) });
+        const registration = await fetch("/api/v1/devices/register", { method: "POST", headers, body: JSON.stringify({ public_key_jwk: await exportPublicKeyJwk(device.publicKey), label: "browser", password: passwordForSetup }) });
         if (!registration.ok && registration.status !== 409) throw new Error("Could not bind this browser device.");
         const serverResponse = await fetch("/api/v1/crypto/server-key");
         if (!serverResponse.ok) throw new Error("Could not load the server encryption key.");
         const serverKey = (await serverResponse.json()) as { public_key: JsonWebKey };
+        const myVpaResponse = await fetch("/api/v1/vpa/me", { headers });
+        if (!myVpaResponse.ok) throw new Error("Could not load your payment address.");
+        const { primary_vpa } = (await myVpaResponse.json()) as { primary_vpa: string };
         const txnId = crypto.randomUUID();
-        const payload = { amount_paise: Math.round(Number(amount) * 100), nonce: crypto.randomUUID(), note: "Browser payment", payee_vpa: payee, payer_vpa: "22it002@gcet", ts: Math.floor(Date.now() / 1000), txn_id: txnId };
+        const payload = { amount_paise: Math.round(Number(amount) * 100), nonce: crypto.randomUUID(), note: "Browser payment", payee_vpa: payee, payer_vpa: primary_vpa, ts: Math.floor(Date.now() / 1000), txn_id: txnId };
         const signed = await signPayload(device.privateKey, payload);
         const { envelope, derivedKey } = await createRequestEnvelope(serverKey.public_key, JSON.stringify({ device_sig: signed.signatureB64, mpin, payload }), txnId, payload.ts);
         if (tamper) envelope.ct = `${envelope.ct.slice(0, -1)}${envelope.ct.endsWith("A") ? "B" : "A"}`;

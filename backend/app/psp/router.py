@@ -21,6 +21,7 @@ from app.bank.models import (
     BankAccount,
     CollectRequest,
     CollectStatus,
+    TxnKind,
 )
 from app.bank.repository import (
     get_or_create_account_for_user,
@@ -124,7 +125,7 @@ async def execute_payment(
     Execute an envelope-encrypted payment through the PSP -> Switch -> Bank pipeline.
     Returns encrypted response envelope containing the Bank-signed receipt.
     """
-    resp_envelope = await psp_process_payment(
+    resp_envelope, _payload = await psp_process_payment(
         session=session,
         current_user=current_user,
         envelope_dict=envelope.model_dump(),
@@ -249,7 +250,11 @@ async def approve_collect_request(
     Approve an incoming collect request by executing the encrypted payment.
     Marks the collect request as APPROVED upon successful bank settlement.
     """
-    stmt = select(CollectRequest).where(CollectRequest.id == id)
+    stmt = (
+        select(CollectRequest)
+        .options(selectinload(CollectRequest.requester_account).selectinload(BankAccount.vpas))
+        .where(CollectRequest.id == id)
+    )
     res = await session.execute(stmt)
     collect = res.scalar_one_or_none()
 
@@ -273,12 +278,19 @@ async def approve_collect_request(
         raise AppError(400, "EXPIRED", "Collect request has expired.")
 
     # Execute payment flow
-    resp_env = await psp_process_payment(
+    payer_vpa = account.vpas[0].handle if account.vpas else ""
+    requester_vpa = collect.requester_account.vpas[0].handle if collect.requester_account.vpas else ""
+    resp_env, payload = await psp_process_payment(
         session=session,
         current_user=current_user,
         envelope_dict=envelope.model_dump(),
+        expected_payment=(payer_vpa, requester_vpa, collect.amount_paise),
     )
 
+    txn = await get_transaction_by_id(session, uuid.UUID(payload.txn_id))
+    if txn is None:
+        raise AppError(500, "INTERNAL", "Collect settlement was not recorded.")
+    txn.kind = TxnKind.COLLECT_SETTLE
     collect.status = CollectStatus.APPROVED
     await session.commit()
 

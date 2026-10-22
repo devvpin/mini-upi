@@ -101,7 +101,8 @@ async def psp_process_payment(
     current_user: User,
     envelope_dict: dict[str, Any],
     failure_injection: str | None = None,
-) -> dict[str, Any]:
+    expected_payment: tuple[str, str, int] | None = None,
+) -> tuple[dict[str, Any], PaymentPayload]:
     """
     Ingress pipeline for payment execution:
     Decrypt envelope -> check timestamp -> check nonce -> verify device sig -> verify MPIN -> call Switch.
@@ -149,6 +150,15 @@ async def psp_process_payment(
 
     txn_uuid = uuid.UUID(payload.txn_id)
 
+    if expected_payment is not None:
+        expected_payer, expected_payee, expected_amount = expected_payment
+        if (
+            payload.payer_vpa != expected_payer
+            or payload.payee_vpa != expected_payee
+            or payload.amount_paise != expected_amount
+        ):
+            raise AppError(400, "COLLECT_MISMATCH", "Payment does not match the collect request.")
+
     # 3. Timestamp window check
     ok_ts, ts_err = validate_timestamp(payload.ts, window_seconds=settings.ts_window_seconds)
     if not ok_ts:
@@ -161,7 +171,31 @@ async def psp_process_payment(
         )
         raise timestamp_skew(f"Transaction timestamp expired or out of range: {ts_err}")
 
-    # 4. Anti-replay nonce check
+    # 4. Verify remitter ownership before checking idempotent completion.
+    payer_vpa_obj = await get_vpa_by_handle(session, payload.payer_vpa)
+    if payer_vpa_obj is None or payer_vpa_obj.account is None or payer_vpa_obj.account.user_id != current_user.id:
+        await _log_audit_rejection(
+            session,
+            event="PAY_REJECTED",
+            reason=f"User {current_user.id} does not own remitter VPA '{payload.payer_vpa}'",
+            user_id=current_user.id,
+            txn_id=payload.txn_id,
+        )
+        raise auth_failed("You are not authorized to pay from this VPA.")
+
+    # A network retry repeats the same signed nonce. Return its receipt before
+    # replay detection, but only to the original payer and only for matching data.
+    existing_txn = await get_transaction_by_id(session, txn_uuid)
+    if existing_txn is not None and existing_txn.status == TxnStatus.SUCCESS and existing_txn.receipt_json:
+        if (
+            existing_txn.payer_account_id != payer_vpa_obj.account_id
+            or existing_txn.amount_paise != payload.amount_paise
+        ):
+            raise AppError(409, "TXN_ID_CONFLICT", "Transaction ID is already in use.")
+        receipt_bytes = canonical_json_bytes(existing_txn.receipt_json)
+        return encrypt_response(derived_key, receipt_bytes, payload.txn_id), payload
+
+    # 5. Anti-replay nonce check
     nonce_val = payload.nonce
     if settings.demo_mode and failure_injection == "replay_nonce":
         # Force a duplicate nonce condition
@@ -181,26 +215,7 @@ async def psp_process_payment(
         )
         raise replay_detected(f"Transaction rejected: {nonce_err}")
 
-    # 5. Idempotency check: if transaction was already completed, return stored receipt
-    existing_txn = await get_transaction_by_id(session, txn_uuid)
-    if existing_txn is not None and existing_txn.status == TxnStatus.SUCCESS and existing_txn.receipt_json:
-        receipt_bytes = canonical_json_bytes(existing_txn.receipt_json)
-        resp_env = encrypt_response(derived_key, receipt_bytes, payload.txn_id)
-        return resp_env
-
-    # 6. Verify remitter VPA ownership
-    payer_vpa_obj = await get_vpa_by_handle(session, payload.payer_vpa)
-    if payer_vpa_obj is None or payer_vpa_obj.account is None or payer_vpa_obj.account.user_id != current_user.id:
-        await _log_audit_rejection(
-            session,
-            event="PAY_REJECTED",
-            reason=f"User {current_user.id} does not own remitter VPA '{payload.payer_vpa}'",
-            user_id=current_user.id,
-            txn_id=payload.txn_id,
-        )
-        raise auth_failed("You are not authorized to pay from this VPA.")
-
-    # 7. Device signature verification
+    # 6. Device signature verification
     dev_stmt = select(Device).where(
         Device.user_id == current_user.id,
         Device.revoked_at.is_(None),
@@ -326,4 +341,4 @@ async def psp_process_payment(
     receipt_bytes = canonical_json_bytes(receipt.to_dict())
     resp_envelope = encrypt_response(derived_key, receipt_bytes, payload.txn_id)
 
-    return resp_envelope
+    return resp_envelope, payload

@@ -32,6 +32,7 @@ router = APIRouter(tags=["crypto"])
 class DeviceRegisterRequest(BaseModel):
     public_key_jwk: dict[str, Any]
     label: str | None = Field(default=None, max_length=128)
+    password: str | None = Field(default=None, min_length=1, description="Current account password")
 
 
 class DeviceResponse(BaseModel):
@@ -45,6 +46,7 @@ class DeviceResponse(BaseModel):
 
 class MpinSetRequest(BaseModel):
     mpin: str = Field(..., pattern=r"^\d{6}$", description="6-digit numeric MPIN")
+    password: str | None = Field(default=None, min_length=1, description="Current account password")
 
 
 class MpinVerifyRequest(BaseModel):
@@ -74,6 +76,13 @@ async def register_device(
     Register a client device public key (ECDSA P-256 JWK).
     Verifies that the JWK is mathematically valid and on the secp256r1 curve.
     """
+    settings = get_settings()
+    if settings.app_env != "test" and (
+        payload.password is None
+        or not verify_secret(payload.password, current_user.password_hash, settings.pepper)
+    ):
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Authentication failed")
+
     try:
         # Validate that JWK is structurally and mathematically sound
         jwk_to_public_key(payload.public_key_jwk)
@@ -92,7 +101,6 @@ async def register_device(
     session.add(device)
     await session.flush()
 
-    settings = get_settings()
     await append_audit_entry(
         session=session,
         event_type="DEVICE_REGISTERED",
@@ -199,6 +207,11 @@ async def set_mpin(
     Stored using Argon2id with server-side pepper pre-hash.
     """
     settings = get_settings()
+    if settings.app_env != "test" and (
+        payload.password is None
+        or not verify_secret(payload.password, current_user.password_hash, settings.pepper)
+    ):
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Authentication failed")
     if settings.app_env == "test":
         mpin_hash = hash_secret(
             payload.mpin, settings.pepper, time_cost=1, memory_cost=1024

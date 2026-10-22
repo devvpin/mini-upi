@@ -46,6 +46,9 @@ def get_root_ca() -> tuple[ec.EllipticCurvePrivateKey, x509.Certificate]:
         _cached_ca_key = load_private_key_pem(ca_key_path.read_bytes())
         return _cached_ca_key, _cached_ca_cert
 
+    if settings.app_env == "production":
+        raise RuntimeError("Production requires the configured CA certificate and private key files.")
+
     ca_key, ca_cert = generate_ca(validity_days=365)
     _cached_ca_key = ca_key
     _cached_ca_cert = ca_cert
@@ -68,6 +71,9 @@ def get_psp_service_keys() -> tuple[ec.EllipticCurvePrivateKey, x509.Certificate
         _cached_psp_cert = x509.load_pem_x509_certificate(cert_path.read_bytes())
         return _cached_psp_key, _cached_psp_cert, ca_cert
 
+    if settings.app_env == "production":
+        raise RuntimeError("Production requires the configured PSP key and certificate files.")
+
     psp_key, psp_cert = issue_service_cert(ca_key, ca_cert, role="PSP", common_name="GCET Campus PSP")
     _cached_psp_key = psp_key
     _cached_psp_cert = psp_cert
@@ -89,6 +95,9 @@ def get_bank_service_keys() -> tuple[ec.EllipticCurvePrivateKey, x509.Certificat
         _cached_bank_key = load_private_key_pem(key_path.read_bytes())
         _cached_bank_cert = x509.load_pem_x509_certificate(cert_path.read_bytes())
         return _cached_bank_key, _cached_bank_cert, ca_cert
+
+    if settings.app_env == "production":
+        raise RuntimeError("Production requires the configured Bank key and certificate files.")
 
     bank_key, bank_cert = issue_service_cert(
         ca_key, ca_cert, role="BANK", common_name="GCET Campus Bank"
@@ -122,6 +131,9 @@ def get_server_ecdh_keys() -> tuple[
         _cached_cert = x509.load_pem_x509_certificate(cert_path.read_bytes())
         _cached_ca_cert = ca_cert
         return _cached_private_key, _cached_private_key.public_key(), _cached_cert, _cached_ca_cert
+
+    if settings.app_env == "production":
+        raise RuntimeError("Production requires the configured server ECDH key and certificate files.")
 
     server_key, server_cert = issue_service_cert(
         ca_key, ca_cert, role="SERVER", common_name="Mini-UPI Server"
