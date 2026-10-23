@@ -5,10 +5,10 @@ import { Button, Input } from '../components/UI';
 type Status = 'loading' | 'ok' | 'error';
 
 /**
- * Landing page — Phase 0 stub.
+ * Landing page with campus login and backend health indicators.
  *
- * Shows the project title, simulation notice, and live health/ready
- * status from the backend (proves the stack is wired up).
+ * Crypto concept: authenticated session entry.
+ * Threat mitigated: unauthenticated access to campus wallet data.
  */
 export function Landing({ onLogin, error }: { onLogin: (collegeId: string, password: string) => Promise<void>; error: string | null }) {
   const [health, setHealth] = useState<Status>('loading');

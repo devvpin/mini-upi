@@ -48,9 +48,41 @@ make test
 # Run linter
 make lint
 
+# Run the frontend locally (in a second terminal)
+cd web && npm install && npm run dev
+
+# Check frontend unit tests and types
+cd web && npm test && npm run lint
+
 # View logs
 make logs
 ```
+
+Run the browser smoke tests after installing a Playwright browser:
+
+```bash
+cd web
+npx playwright install chromium
+npm run build
+npm run test:e2e
+```
+
+Set `VITE_DEMO_MODE=true` for both the build and test commands to enable the
+tamper-rejection demonstration.
+
+## First login and demo payments
+
+Seeded accounts start with a temporary password. On the first sign-in, change that
+password, choose a six-digit MPIN, and bind the browser. The MPIN is chosen by the
+user, stored only as a hash, and cannot be looked up later; it can be changed from
+the Profile screen after confirming the account password.
+
+Wallets use virtual points only. Accounts start unfunded, and their VPA is created
+when they first open the wallet. To send points, the recipient must have opened
+their wallet at least once; an admin can also create/fund the account with **Admin
+→ Treasury top-up**. A recipient receives points when a successful payment is
+addressed to their VPA. Local seed passwords are written to the ignored
+`scripts/seed/one_time_credentials.csv` file; never use them outside this demo.
 
 ## Production deployment
 
@@ -105,7 +137,7 @@ mini-upi/
 | 2 | Wallet & ledger              | ✅ Complete   |
 | 3 | Crypto core                  | ✅ Complete   |
 | 4 | Payment engine               | ✅ Complete   |
-| 5 | Frontend                     | ✅ Complete   |
+| 5 | Frontend                     | 🔄 In progress |
 | 6 | Hardening & attack demos     | ✅ Complete   |
 | 7 | Deploy & present             | ✅ Complete   |
 
