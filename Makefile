@@ -1,7 +1,7 @@
 # Mini-UPI Makefile
 # Usage: make up | make test | make lint | make migrate
 
-.PHONY: up down test lint migrate format logs attacks backup loadtest
+.PHONY: up down test lint migrate format logs attacks backup loadtest seed attacks-docker
 
 # ── Docker ──────────────────────────────────────────────────────────────────
 up:
@@ -20,6 +20,9 @@ migrate:
 migrate-local:
 	cd backend && alembic upgrade head
 
+seed:
+	docker compose exec api python -m scripts.seed.seed_database
+
 # ── Testing ─────────────────────────────────────────────────────────────────
 test:
 	cd backend && python -m pytest tests/ -v --tb=short
@@ -29,6 +32,9 @@ test-docker:
 
 attacks:
 	cd backend && python -m pytest tests/test_phase3.py tests/test_phase4.py tests/test_phase6.py -v --tb=short
+
+attacks-docker:
+	docker compose exec api python -m pytest tests/test_phase3.py tests/test_phase4.py tests/test_phase6.py -v --tb=short
 
 backup:
 	./scripts/backup.sh

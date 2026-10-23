@@ -1,0 +1,28 @@
+{
+  "name": "Mini-UPI (Crypto Payment Simulation)",
+  "image": "mcr.microsoft.com/devcontainers/universal:2-linux",
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {
+      "enableNonRootDocker": "true",
+      "moby": "true"
+    }
+  },
+  "forwardPorts": [80, 8000, 5173],
+  "portsAttributes": {
+    "80": {
+      "label": "Mini-UPI Application (Web & API)",
+      "onAutoForward": "openBrowser",
+      "protocol": "http",
+      "elevateIfNeeded": true
+    },
+    "8000": {
+      "label": "FastAPI Backend API",
+      "onAutoForward": "silent"
+    },
+    "5173": {
+      "label": "Vite Dev Server",
+      "onAutoForward": "silent"
+    }
+  },
+  "postCreateCommand": "bash scripts/codespaces_setup.sh --init-only"
+}

@@ -92,7 +92,8 @@ def create_app() -> FastAPI:
     app.add_middleware(RequestIdMiddleware)
     app.add_middleware(
         CORSMiddleware,
-        allow_origins=[settings.web_origin],
+        allow_origins=[settings.web_origin, "http://localhost", "http://localhost:80", "http://localhost:5173"],
+        allow_origin_regex=r"^https?://.*\.app\.github\.dev$",
         allow_methods=["GET", "POST", "PUT", "DELETE"],
         allow_headers=["*"],
         allow_credentials=True,

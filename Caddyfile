@@ -1,8 +1,9 @@
 {
-	# Use internal CA for local/campus HTTPS
+	# Disable auto HTTPS so Caddy works smoothly behind Codespaces / reverse proxy
+	auto_https off
 }
 
-localhost {
+:80 {
 	handle /api/* {
 		reverse_proxy api:8000
 	}
